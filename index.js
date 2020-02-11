@@ -2,8 +2,8 @@ const config = require("./config.json");
 const { Client} = require("discord.js");
 global.req = require('request');
 
-let players = `http://178.32.112.175:30120/players.json`;
-let info = `http://178.32.112.175:30120/info.json`;
+let players = `http://<ip>:<port>/players.json`;
+let info = `http://<ip>:<port>/info.json`;
         const client = new Client({
             disableEveryone: true
         });
