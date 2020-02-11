@@ -1,6 +1,6 @@
 # FiveM | Data Bot
 
-#Instalacja
+Instalacja
 
 Wymagania:
   NodeJS
