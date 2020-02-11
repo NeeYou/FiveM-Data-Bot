@@ -28,8 +28,8 @@ Linux
   1. Create a folder and extract the bot files.
   2. Complete the bot token in the file config.json.
   3. Replace the links in the file index.js
-    - http://<ip>:<port>/info.json
-    - http://<ip>:<port>/players.json
+    - http://ip:port/info.json
+    - http://ip:port/players.json
   4. Install the required packages
     - npm install
   5. Run bot
