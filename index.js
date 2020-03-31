@@ -3,17 +3,14 @@ const { Client} = require("discord.js");
 global.req = require('request');
 
 let players = `http://<ip>:<port>/players.json`;
-let info = `http://<ip>:<port>/info.json`;
         const client = new Client({
             disableEveryone: true
         });
     client.on("ready", () => {
         var interval = setInterval (function () {
-            req(info, function (err1, response, infoj) {
-            req(players, function (err2, response, playersj) {
+            req(players, function (err2, response, playersinfo) {
                 process.setMaxListeners(0);
-                var start = JSON.parse(infoj)
-                var start2 = JSON.parse(playersj)
+                var start = JSON.parse(playersinfo)
                 if (start === null || start === []) {
                     var e = 0
                 } else {
@@ -31,7 +28,7 @@ let info = `http://<ip>:<port>/info.json`;
                     client.user.setPresence({
                         status: "ONLINE",
                         game: {
-                            name: `${e}/${start2.vars.sv_maxClients} graczy`,
+                            name: `${e}/${start.vars.sv_maxClients} graczy`,
                         }
                     });
                 }                            
