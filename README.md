@@ -9,10 +9,7 @@ Wymagania:
 Linux
   1. Stwórz folder i wypakuj pliki bota.
   2. Uzupełnij token bota w pliku config.json.
-  3. Podmień linki w pliku index.js  
-  
-    http://ip:port/info.json
-    
+  3. Podmień link w pliku index.js  
     http://ip:port/players.json
   4. Zainstaluj wymagane pakiety
   
@@ -33,8 +30,6 @@ Linux
   2. Complete the bot token in the file config.json.
   3. Replace the links in the file index.js
   
-    http://ip:port/info.json
-    
     http://ip:port/players.json
   4. Install the required packages
   
