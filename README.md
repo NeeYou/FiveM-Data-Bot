@@ -10,6 +10,7 @@ Linux
   1. Stwórz folder i wypakuj pliki bota.
   2. Uzupełnij token bota w pliku config.json.
   3. Podmień link w pliku index.js  
+  
     http://ip:port/players.json
   4. Zainstaluj wymagane pakiety
   
