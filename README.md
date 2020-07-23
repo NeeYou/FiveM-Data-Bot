@@ -43,9 +43,8 @@ Linux
   5. Send command "{prefix}send-message" and stop the bot. 
   6. Replace the "fivem_info_url" (3 line) and "fivem_players_url" (4 line) in the file config.json
   
-    http://ip:port/info.json
-    
-    http://ip:port/players.json
+    http://ip:port/info.json - fivem_info_url
+    http://ip:port/info.json - fivem_players_url 
   7. Set channel id (where is the status message) and copy message id and paste in config.
   8. Run the bot 
     
