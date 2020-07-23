@@ -1,15 +1,17 @@
 {
-  "name": "fivem_data_bot",
+  "name": "fivem-bot",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "fs": "0.0.1-security",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "NeeY",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^11.5.1",
-    "request": "^2.88.2"
-  }
+  "license": "ISC"
 }
