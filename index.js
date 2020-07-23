@@ -28,7 +28,7 @@ let players = `http://<ip>:<port>/players.json`;
                     client.user.setPresence({
                         status: "ONLINE",
                         game: {
-                            name: `${e}/${start.vars.sv_maxClients} graczy`,
+                            name: `${e}/${start.vars.sv_maxClients} players`,
                         }
                     });
                 }                            
