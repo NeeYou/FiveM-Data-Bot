@@ -1,7 +1,7 @@
-const { Client, RichEmbed } = require("discord.js");
-const config = require("./config.json")
-const request = require("request");
-const fs = require("fs");
+const { Client, RichEmbed } = require('discord.js');
+const config = require('./config.json')
+const request = require('request');
+const fs = require('fs');
 
 const client = new Client({
     disableEveryone: true,
@@ -14,6 +14,16 @@ client.on("ready", () => {
     console.log(`Logged in account ${client.user.username}`);
 })
 
+
+client.on("message", async message => {
+    const args = message.content.slice('/').trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
+    
+    if (cmd === "send-message") {
+      if(!message.member.hasPermission('ADMINISTRATOR')) return message.delete();  
+      message.channel.send('Copy this message id and set is in config!');
+    }
+})
 
 client.setInterval(async () => {
     client.channels.get(config.channel_status_id).fetchMessage(config.message_status_id).then(m => {
