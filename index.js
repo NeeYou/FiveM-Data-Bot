@@ -1,7 +1,6 @@
-const { Client, RichEmbed } = require('discord.js');
+const { Client, MessageEmbed } = require('discord.js');
 const config = require('./config.json')
 const request = require('request');
-const fs = require('fs');
 
 const client = new Client({
     disableEveryone: true,
@@ -12,48 +11,65 @@ const client = new Client({
 
 client.on("ready", () => {
     console.log(`Logged in account ${client.user.username}`);
+    client.user.setPresence({
+        status: "ONLINE",
+        game: {
+            name: `Fetching status...`,
+            type: "WATCHING",
+        }
+    });
 })
 
 
 client.on("message", async message => {
-    const args = message.content.slice('/').trim().split(/ +/g);
+    if (!message.guild) return;
+    if (!message.content.startsWith('/')) return;
+    const args = message.content.slice(1).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
+
     
     if (cmd === "send-message") {
       if(!message.member.hasPermission('ADMINISTRATOR')) return message.delete();  
+      message.delete();
       message.channel.send('Copy this message id and set is in config!');
     }
 })
 
 client.setInterval(async () => {
-    client.channels.get(config.channel_status_id).fetchMessage(config.message_status_id).then(m => {
+    if (config.message_status_id === null || config.channel_status_id === null || config.fivem_info_url === null || config.fivem_players_url == null) return;
+    if (config.message_status_id === '' || config.channel_status_id === '' || config.fivem_info_url === '' || config.fivem_players_url == '') return;    
+    client.channels.cache.get(config.channel_status_id).messages.fetch(config.message_status_id).then(m => {
         request(config.fivem_info_url, function (err, response, fiveminfo) {
-        request(config.fivem_players_url, function (err1, response, fivemplayers) {
+        request(config.fivem_players_url, function (err1, response1, fivemplayers) {
+            const ServerError = new MessageEmbed()
+                .setTitle('Server Status')
+                .setColor('#DA242F')
+                .setDescription(`**Offline**`)
+                .setTimestamp()
+                .setFooter('NeeY ©',)
+            let offline_presence = client.user.setPresence({status: "ONLINE", game: { name: `Server offline!`, type: "WATCHING",} });
+            if (response === undefined || response1 === undefined) {
+                m.edit(ServerError).catch(error => console.log(error));
+                offline_presence
+                console.log(1)
+                return
+            }
             if (err || err1) {
-                const ServerError = new RichEmbed()
-                    .setTitle('Players:')
-                    .setColor('#DA242F')
-                    .addField(`Status:`, `**Offline**`, true)
-                    .setTimestamp()
-                    .setFooter('NeeY ©',)
                 m.edit(ServerError)
-                client.user.setPresence({
-                    status: "ONLINE",
-                    game: {
-                        name: `Server offline!`,
-                        type: "WATCHING"
-                    }
-                });
+                offline_presence
+                console.log(2)
+                return
             } else {
+                console.log(3)
                 var info = JSON.parse(fiveminfo);
                 var players = JSON.parse(fivemplayers);
                 if (players.length === 0) {
-                    const ServerOnline = new RichEmbed()
+                    const ServerOnline = new MessageEmbed()
                         .setTitle(`Players online: ${players.length}/${info.vars.sv_maxClients} `)
                         .setColor('#00fbff')
                         .setTimestamp()
                         .setFooter('NeeY ©',)
-                    m.edit(ServerOnline);
+                    m.edit(ServerOnline).catch(error => console.log(error));
                 } else {
                     var nick = "";
                     var id = "";
@@ -62,29 +78,23 @@ client.setInterval(async () => {
                         nick += `\n${element.name}`
                         id += `\n${element.id}`
                     });
-                    const ServerOnline = new RichEmbed()
+                    const ServerOnline = new MessageEmbed()
                         .setTitle(`Players online: ${players.length}/${info.vars.sv_maxClients} `)
                         .setColor('#00fbff')
                         .addField(`ID:`, `${id}`, true)
                         .addField(`Nick:`, `${nick}`, true)
                         .setTimestamp()
-                        .setFooter(NeeY ©',)
-                    m.edit(ServerOnline);                    
+                        .setFooter('NeeY ©',)
+                    m.edit(ServerOnline).catch(error => console.log(error));               
                 }
-                client.user.setPresence({
-                    status: "ONLINE",
-                    game: {
-                        name: `Online: ${players.length}/${info.vars.sv_maxClients} `,
-                        type: "WATCHING"
-                    }
-                });
+                client.user.setPresence({status: "ONLINE", game: { name: `Online: ${players.length}/${info.vars.sv_maxClients}`, type: "WATCHING",} });
             }
         });
         });
     }).catch(error => {
         console.log('\x1b[41m%s\x1b[0m', `Error:\n${error}`);
     });
-}, 5 * 1000);
+}, 30 * 1000);
 
 client.login(config.token);
 

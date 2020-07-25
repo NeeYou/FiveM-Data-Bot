@@ -1,11 +1,10 @@
 {
-  "name": "fivem-bot",
-  "version": "1.0.1",
+  "name": "fivem-ssb",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "fs": "0.0.1-security",
+    "discord.js": "^12.2.0",
     "request": "^2.88.2"
   },
   "devDependencies": {},
