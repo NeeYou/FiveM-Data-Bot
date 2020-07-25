@@ -15,7 +15,7 @@ Linux
   4. Uruchom bota.
   
     node index.js  
-  5. Wyślij wiadomość "{prefix}send-message" na kanale którym chcesz mieć wysyłaną wiadomość przez bot'a, po czym wyłącz bota.
+  5. Wyślij wiadomość "/send-message" na kanale którym chcesz mieć wysyłaną wiadomość przez bot'a, po czym wyłącz bota.
   6. Uzupełnij "fivem_info_url" (3 linia) i "fivem_players_url" (4 linia) w pliku config.json.
   
     http://ip:port/info.json - fivem_info_url
@@ -40,7 +40,7 @@ Linux
   4. Run bot
   
     node index.js
-  5. Send command "{prefix}send-message" and stop the bot. 
+  5. Send command "/send-message" and stop the bot. 
   6. Replace the "fivem_info_url" (3 line) and "fivem_players_url" (4 line) in the file config.json.
   
     http://ip:port/info.json - fivem_info_url
